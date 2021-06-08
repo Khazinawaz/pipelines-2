@@ -29,7 +29,6 @@ pipelines:
         execution:
           onExecute:
             - printenv
-            - docker images
 
       - name: c7dynamic
         type: Bash
@@ -40,7 +39,6 @@ pipelines:
         execution:
           onExecute:
             - printenv
-            - docker images
 
       - name: u18dynamic
         type: Bash
@@ -51,7 +49,6 @@ pipelines:
         execution:
           onExecute:
             - printenv
-            - docker images
 
 #       - name: rhel
 #         type: Bash
@@ -72,7 +69,6 @@ pipelines:
         execution:
           onExecute:
             - printenv
-            - docker images
             
       - name: c8dynamic
         type: Bash
@@ -83,7 +79,6 @@ pipelines:
         execution:
           onExecute:
             - printenv
-            - docker images
 
 #       - name: win_2019
 #         type: PowerShell
