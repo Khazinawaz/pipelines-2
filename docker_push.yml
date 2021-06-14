@@ -8,8 +8,8 @@ resources:
   - name: ns_dockerbuild_gitRepo
     type: GitRepo
     configuration:
-      path: vishnurao12/sample-script
-      gitProvider: git_v
+      path: Khazinawaz/sample-script
+      gitProvider: nawaz_gh
       branches: 
         include: master
         
@@ -46,9 +46,8 @@ resources:
     type:      Image
     configuration:
       registry:            art_v
-      sourceRepository:    image-docker   # required if registry is Artifactory
-
-      imageName:           fullstack.jfrog-pipelines.com/docker-local/node
+      sourceRepository:    nawaz-docker   # required if registry is Artifactory
+      imageName:           nawazeplus.jfrogdev.org/nawaz-docker-local/node:1.2.3
       imageTag:            1.2.3
 
 
@@ -62,8 +61,7 @@ pipelines:
           affinityGroup: "BasicTest"
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: fullstack.jfrog-pipelines.com/docker-local/node
-          
+          dockerImageName: nawazeplus.jfrogdev.org/nawaz-docker-local/node
           dockerImageTag: 1.2.3
           integrations:
             - name: art_v
@@ -78,9 +76,9 @@ pipelines:
         configuration:
           affinityGroup: "BasicTest"
           autoPublishBuildInfo: true 
-          forceXrayScan:        true
+          forceXrayScan:        false
           failOnScan:           false
-          targetRepository: docker-local #required
+          targetRepository: nawaz-docker-local #required
           integrations:
             - name: art_v 
           inputSteps:
@@ -88,15 +86,14 @@ pipelines:
           outputResources:
             - name: ns_buildInfo
             - name: out_image
-            
                
-#       - name: To_publish_buildInfo 
-#         type: PublishBuildInfo
-#         configuration:
-#           inputSteps:
-#             - name: To_Push_Docker_Image
-#           outputResources:
-#             - name: ns_buildInfo
+      - name: To_publish_buildInfo 
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: To_Push_Docker_Image
+          outputResources:
+            - name: ns_buildInfo
 
       - name: To_promote_build
         type: PromoteBuild
@@ -122,12 +119,3 @@ pipelines:
           outputResources:
             - name: res_bundle
           dryRun: false
-
-          
-      - name: docker_sign_releaseBundle
-        type: SignReleaseBundle
-        configuration:
-          inputResources:
-            - name:            res_bundle
-          outputResources:
-            - name:            sig_bundle
