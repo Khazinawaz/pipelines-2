@@ -75,7 +75,7 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: "BasicTest"
-          autoPublishBuildInfo: true 
+          autoPublishBuildInfo: false 
           forceXrayScan:        false
           failOnScan:           false
           targetRepository: nawaz-docker-local #required
